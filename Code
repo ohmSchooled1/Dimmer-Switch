@@ -1,0 +1,25 @@
+// Worksheet 5: Dimmer switch
+// Turning the potentiometer on A0 changes the brightness of the LED on pin 9.
+// Open the Serial Monitor (9600 baud) to see the numbers change.
+
+const int potPin = A0;   // middle leg of the potentiometer
+const int ledPin = 9;    // must be a PWM pin (marked with ~ on the board)
+
+void setup() {
+  pinMode(ledPin, OUTPUT);
+  Serial.begin(9600);    // start talking to the computer
+}
+
+void loop() {
+  int potValue = analogRead(potPin);              // 0 to 1023
+  int brightness = map(potValue, 0, 1023, 0, 255); // convert to 0 to 255
+
+  analogWrite(ledPin, brightness);                // set LED brightness
+
+  Serial.print("Knob: ");
+  Serial.print(potValue);
+  Serial.print("   Brightness: ");
+  Serial.println(brightness);
+
+  delay(100);
+}
